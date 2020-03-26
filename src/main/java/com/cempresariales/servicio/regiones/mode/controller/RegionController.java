@@ -3,37 +3,57 @@ package com.cempresariales.servicio.regiones.mode.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cempresariales.servicio.commons.model.entity.Empresa;
 import com.cempresariales.servicio.commons.model.entity.Region;
 import com.cempresariales.servicio.regiones.mode.service.RegionServiceImp;
 
 @RestController
+@RequestMapping(value = "region")
 public class RegionController {
 
 	@Autowired
 	private RegionServiceImp regionServicio;
 	
-	@GetMapping("/listarRegiones")
+	@GetMapping("/listar")
 	public List<Region> listarZonas(){
 		return regionServicio.findAll();
 	}
 	
-	@GetMapping("/region/{id}")
+	@GetMapping("/ver/{id}")
 	public Region ver(@PathVariable Long id){
 		return regionServicio.findById(id);
 	}
 	
-	@PostMapping("/crearRegion/{region}")
-	public Region crear(@PathVariable Region region){
+	@PostMapping("/crear")
+	@ResponseStatus(HttpStatus.CREATED)	
+	public Region crear(@RequestBody Region region){
 		return regionServicio.save(region);
 	}
 	
-	@DeleteMapping("/eliminarRegion/{id}")
+	@PutMapping("/editar/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Region editar(@RequestBody Region region, @PathVariable Long id) {
+		Region regionDb = regionServicio.findById(id);
+		
+		regionDb.setNombre(region.getNombre());
+		regionDb.setActivo(region.getActivo());
+		
+				
+        return regionServicio.save(regionDb);
+	}
+	
+	@DeleteMapping("/eliminar/{id}")
 	public void eliminar(@PathVariable Long id){
 		regionServicio.delete(id);
 	}

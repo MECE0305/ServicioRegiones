@@ -7,29 +7,32 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cempresariales.servicio.commons.model.entity.Ciudad;
 import com.cempresariales.servicio.regiones.mode.service.CiudadServiceImpl;
 
 @RestController
+@RequestMapping(value = "ciudad")
 public class CiudadController {
 
 	@Autowired
 	private CiudadServiceImpl ciudadServicio;
 	
-	@GetMapping("/listarCiudades")
+	@GetMapping("/listar")
 	public List<Ciudad> listarCiudades(){
 		return ciudadServicio.findAll();
 	}
 	
-	@GetMapping("/ciudad/{id}")
+	@GetMapping("/ver/{id}")
 	public Ciudad verItem(@PathVariable Long id){
 		return ciudadServicio.findById(id);
 	}
 	
-	@PostMapping("/crearCiudad/{categoria}")
-	public Ciudad crear(@PathVariable Ciudad categoria){
+	@PostMapping("/crear")
+	public Ciudad crear(@RequestBody Ciudad categoria){
 		return ciudadServicio.save(categoria);
 	}
 	
