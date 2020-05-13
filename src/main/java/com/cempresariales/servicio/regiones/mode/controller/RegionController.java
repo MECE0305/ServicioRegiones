@@ -46,8 +46,8 @@ public class RegionController {
 	public Region editar(@RequestBody Region region, @PathVariable Long id) {
 		Region regionDb = regionServicio.findById(id);
 		
-		regionDb.setNombre(region.getNombre());
-		regionDb.setActivo(region.getActivo());
+		regionDb.setNombreRegion(region.getNombreRegion());
+		regionDb.setActivoRegion(region.getActivoRegion());
 		
 				
         return regionServicio.save(regionDb);
