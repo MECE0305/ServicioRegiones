@@ -48,7 +48,7 @@ public class RegionController {
 		
 		regionDb.setNombreRegion(region.getNombreRegion());
 		regionDb.setActivoRegion(region.getActivoRegion());
-		
+		regionDb.setRegionHasZonaList(region.getRegionHasZonaList());
 				
         return regionServicio.save(regionDb);
 	}
