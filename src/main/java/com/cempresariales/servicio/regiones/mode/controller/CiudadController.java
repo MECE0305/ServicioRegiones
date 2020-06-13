@@ -21,7 +21,7 @@ import com.cempresariales.servicio.commons.model.entity.Provincia;
 import com.cempresariales.servicio.regiones.mode.service.CiudadServiceImpl;
 
 @RestController
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS })
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.OPTIONS })
 @RequestMapping(value = "ciudad")
 public class CiudadController {
 

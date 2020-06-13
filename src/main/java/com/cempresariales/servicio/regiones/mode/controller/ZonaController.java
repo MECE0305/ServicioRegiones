@@ -21,7 +21,7 @@ import com.cempresariales.servicio.commons.model.entity.Zona;
 import com.cempresariales.servicio.regiones.mode.service.ZonaServiceImp;
 
 @RestController
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS })
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.OPTIONS })
 @RequestMapping(value = "zona")
 public class ZonaController {
 
