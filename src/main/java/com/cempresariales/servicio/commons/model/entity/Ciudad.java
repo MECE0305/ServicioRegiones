@@ -8,7 +8,6 @@ package com.cempresariales.servicio.commons.model.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,7 +26,7 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  *
@@ -58,7 +57,7 @@ public class Ciudad implements Serializable {
     @Column(name = "nombre_ciudad")
     private String nombreCiudad;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ciudadIdCiudad")
-    @JsonIgnore
+    @JsonBackReference
     private List<Agencia> agenciaList;
     @JoinColumn(name = "provincia_id_provincia", referencedColumnName = "id_provincia")
     @ManyToOne(optional = false)
