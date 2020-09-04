@@ -17,17 +17,15 @@ import com.cempresariales.servicio.regiones.mode.dao.CiudadDao;
 import com.cempresariales.servicio.commons.model.entity.Ciudad;
 import com.cempresariales.servicio.commons.model.entity.Rol;
 
-
 @Service
-public class CiudadServiceImpl implements ICiudadService{
+public class CiudadServiceImpl implements ICiudadService {
 
 	@Autowired
 	private CiudadDao ciudadDao;
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
-	
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<Ciudad> findAll() {
@@ -46,10 +44,10 @@ public class CiudadServiceImpl implements ICiudadService{
 	}
 
 	@Override
-	public void deleteById(Long id) {	
+	public void deleteById(Long id) {
 		ciudadDao.deleteById(id);
 	}
-	
+
 	@Override
 	public List<Ciudad> findCiudadesByAgencias(Collection<Long> expresion) {
 		try {
@@ -68,8 +66,7 @@ public class CiudadServiceImpl implements ICiudadService{
 			}
 
 			StringBuilder queryString = new StringBuilder(
-					"select c from Ciudad c where c.idCiudad  in " + "(" + cadena
-							+ ") group by c.nombreCiudad");
+					"select c from Ciudad c where c.idCiudad  in (select a.ciudadIdCiudad.idCuidad from Agencia a where a.idAgencia in (" + cadena + "))");
 
 			Query query = entityManager.createQuery(queryString.toString());
 
