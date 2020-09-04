@@ -1,6 +1,13 @@
 package com.cempresariales.servicio.regiones.mode.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cempresariales.servicio.regiones.mode.dao.CiudadDao;
 import com.cempresariales.servicio.commons.model.entity.Ciudad;
+import com.cempresariales.servicio.commons.model.entity.Rol;
 
 
 @Service
@@ -15,6 +23,9 @@ public class CiudadServiceImpl implements ICiudadService{
 
 	@Autowired
 	private CiudadDao ciudadDao;
+	
+	@PersistenceContext
+	private EntityManager entityManager;
 	
 	
 	@Override
@@ -37,6 +48,36 @@ public class CiudadServiceImpl implements ICiudadService{
 	@Override
 	public void deleteById(Long id) {	
 		ciudadDao.deleteById(id);
+	}
+	
+	@Override
+	public List<Ciudad> findCiudadesByAgencias(Collection<Long> expresion) {
+		try {
+
+			Iterator<Long> iterator = expresion.iterator();
+			String cadena = "";
+			int x = 0;
+			while (iterator.hasNext()) {
+
+				cadena += iterator.next() + ",";
+				if (x == expresion.size() - 1) {
+					cadena = cadena.substring(0, cadena.length() - 1);
+				}
+
+				x++;
+			}
+
+			StringBuilder queryString = new StringBuilder(
+					"select c from Ciudad c where c.idCiudad  in " + "(" + cadena
+							+ ") group by c.nombreCiudad");
+
+			Query query = entityManager.createQuery(queryString.toString());
+
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
 	}
 
 }

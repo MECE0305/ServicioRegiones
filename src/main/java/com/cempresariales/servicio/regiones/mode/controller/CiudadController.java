@@ -1,5 +1,6 @@
 package com.cempresariales.servicio.regiones.mode.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cempresariales.servicio.commons.model.entity.Ciudad;
 import com.cempresariales.servicio.commons.model.entity.Provincia;
+import com.cempresariales.servicio.commons.model.entity.Rol;
 import com.cempresariales.servicio.regiones.mode.service.CiudadServiceImpl;
 
 @RestController
@@ -56,6 +58,13 @@ public class CiudadController {
 	@DeleteMapping("/eliminar/{id}")
 	public void eliminar(@PathVariable Long id) {
 		ciudadServicio.deleteById(id);
+	}
+	
+	
+	@PostMapping("/findCiudadesByAgencias")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<Ciudad> findCiudadesByAgencias(@RequestBody Collection<Long> expresion) {
+		return ciudadServicio.findCiudadesByAgencias(expresion);
 	}
 
 }
