@@ -66,7 +66,7 @@ public class CiudadServiceImpl implements ICiudadService {
 			}
 
 			StringBuilder queryString = new StringBuilder(
-					"select c from Ciudad c where c.idCiudad  in (select a.ciudadIdCiudad.idCuidad from Agencia a where a.idAgencia in (" + cadena + "))");
+					"select c from Ciudad c where c.idCiudad  in (select a.ciudadIdCiudad.idCiudad from Agencia a where a.idAgencia in (" + cadena + "))");
 
 			Query query = entityManager.createQuery(queryString.toString());
 
